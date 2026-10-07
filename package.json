@@ -1,6 +1,6 @@
 {
   "name": "react-nat-modal",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A reusable and customizable React modal component",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -17,8 +17,8 @@
     "demo"
   ],
   "scripts": {
-    "dev": "tsup --watch",
-    "build": "tsup",
+    "dev": "node api.js && tsup --watch",
+    "build": "node api.js && tsup",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "bun run build"
   },

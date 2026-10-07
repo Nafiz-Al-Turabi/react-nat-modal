@@ -1,6 +1,6 @@
 {
   "name": "react-nat-modal",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A reusable and customizable React modal component",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

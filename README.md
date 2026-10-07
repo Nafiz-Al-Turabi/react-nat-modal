@@ -10,7 +10,7 @@ A clean, responsive, and animated modal dialog component for React. Built with s
 
 ## Preview
 
-![React Nat Modal Demo](./demo/demo.gif)
+![React Nat Modal Demo](https://i.ibb.co.com/1GjtgCsH/nat-demo.gif)
 
 ---
 

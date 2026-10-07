@@ -1,15 +1,15 @@
 # react-nat-modal
 
-A lightweight, accessible, animated, and fully customizable React modal component built for modern React applications.
+A clean, responsive, and animated modal dialog component for React. Built with smooth enter/exit transitions, flexible sizing, and full support for both Tailwind CSS utility classes and custom color values.
 
-## Features
+[![npm version](https://img.shields.io/npm/v/react-nat-modal?color=blue)](https://www.npmjs.com/package/react-nat-modal)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/react-nat-modal)](https://bundlephobia.com/package/react-nat-modal)
+[![license](https://img.shields.io/npm/l/react-nat-modal)](./LICENSE)
 
-- 🎨 **Customizable Backgrounds**: Customize the modal dialog and backdrop overlay with Tailwind CSS classes or direct CSS colors (Hex, RGB, HSL).
-- 📐 **Multiple Size Presets**: Pre-configured responsive sizes (`sm`, `md`, `lg`, `xl`, `xxl`).
-- ⚡ **Smooth Animations**: Built-in scale and opacity transitions for enter and exit animations.
-- ♿ **Accessible**: Includes `dialog` role, `aria-modal`, and `aria-label` attributes.
-- 🛠 **Fully Typed**: Written in TypeScript with full type definitions and JSDoc documentation.
-- 📦 **Zero External State Dependencies**: Simple and predictable controlled component.
+---
+
+## Preview
+
 ![React Nat Modal Demo](./demo/demo.gif)
 
 ---
@@ -17,9 +17,10 @@ A lightweight, accessible, animated, and fully customizable React modal componen
 ## Installation
 
 ```bash
-# npm
 npm install react-nat-modal
+```
 
+```bash
 # bun
 bun add react-nat-modal
 
@@ -32,18 +33,19 @@ yarn add react-nat-modal
 
 ### Peer Dependencies
 
-Ensure you have React 18 or newer installed:
+Requires React 18 or higher:
+
 ```bash
 npm install react react-dom
 ```
 
 ---
 
-## Quick Start
+## Basic Usage
 
 ```tsx
 import { useState } from "react";
-import Modal from "react-nat-modal";
+import { Modal } from "react-nat-modal";
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,9 +57,9 @@ export default function App() {
       <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        title="Welcome to react-nat-modal"
+        title="Settings"
       >
-        <p>This is the modal body content.</p>
+        <p>Manage your account settings and preferences.</p>
       </Modal>
     </div>
   );
@@ -66,38 +68,38 @@ export default function App() {
 
 ---
 
-## Customizing Backgrounds
+## Customizing Background & Overlay
 
-You can change both the **modal container background** (`bgColor`) and the **backdrop overlay background** (`overlayBg`).
+`react-nat-modal` supports both Tailwind classes and direct CSS colors (Hex, RGB, HSL) for the modal card and the backdrop overlay.
 
-### 1. Using Tailwind CSS Classes
+### Using Tailwind Classes
 
 ```tsx
 <Modal
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
-  title="Dark Theme Modal"
-  bgColor="bg-neutral-900 text-white"
+  title="Dark Mode"
+  bgColor="bg-zinc-900 text-white"
   overlayBg="bg-black/75"
 >
-  <p className="text-neutral-300">
-    Styled easily with your existing Tailwind CSS utility classes.
+  <p className="text-zinc-300">
+    Styled with Tailwind utility classes.
   </p>
 </Modal>
 ```
 
-### 2. Using Direct CSS Color Values (Hex, RGB, HSL)
+### Using Custom CSS Colors
 
 ```tsx
 <Modal
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
-  title="Custom Color Modal"
+  title="Custom Theme"
   bgColor="#1e293b"
-  overlayBg="rgba(15, 23, 42, 0.7)"
+  overlayBg="rgba(15, 23, 42, 0.8)"
 >
-  <p style={{ color: "#f8fafc" }}>
-    Direct hex and rgba color strings are supported out of the box.
+  <p className="text-slate-100">
+    Hex, RGB, and RGBA strings work out of the box without extra CSS.
   </p>
 </Modal>
 ```
@@ -106,84 +108,78 @@ You can change both the **modal container background** (`bgColor`) and the **bac
 
 ## Sizes
 
-Change modal max-width using the `size` prop:
+Use the `size` prop to select a preset maximum width:
 
-| Size | Tailwind Max Width |
-| :--- | :--- |
-| `sm` | `max-w-md` (~448px) |
-| `md` *(default)* | `max-w-lg` (~512px) |
-| `lg` | `max-w-2xl` (~672px) |
-| `xl` | `max-w-4xl` (~896px) |
-| `xxl` | `max-w-6xl` (~1152px) |
+| Value | Max Width | Target Screen / Usage |
+| :--- | :--- | :--- |
+| `"sm"` | `max-w-md` (448px) | Alerts, confirmation dialogs |
+| `"md"` | `max-w-lg` (512px) | Standard forms, small dialogs *(default)* |
+| `"lg"` | `max-w-2xl` (672px) | Multi-step forms, medium content |
+| `"xl"` | `max-w-4xl` (896px) | Tables, dashboards, previews |
+| `"xxl"` | `max-w-6xl` (1152px) | Full-width document viewers, large grids |
 
 ```tsx
-<Modal
-  isOpen={isOpen}
-  onClose={() => setIsOpen(false)}
-  size="xl"
-  title="Large Modal"
->
-  <p>Large modal content...</p>
+<Modal isOpen={isOpen} onClose={() => setIsOpen(false)} size="lg" title="Large Dialog">
+  <p>Expanded modal view.</p>
 </Modal>
 ```
 
 ---
 
-## Adding a Footer
+## With Action Footer
 
-Pass action buttons or custom markup using the `footer` prop:
+Pass any action buttons or footer component via the `footer` prop:
 
 ```tsx
 <Modal
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
-  title="Confirm Action"
+  title="Delete Account"
   footer={
     <div className="flex justify-end gap-3">
       <button
+        type="button"
         onClick={() => setIsOpen(false)}
-        className="px-4 py-2 border rounded-lg hover:bg-gray-50"
+        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg"
       >
         Cancel
       </button>
       <button
-        onClick={() => {
-          handleSave();
-          setIsOpen(false);
-        }}
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        type="button"
+        onClick={handleDelete}
+        className="px-4 py-2 text-sm bg-red-600 text-white hover:bg-red-700 rounded-lg"
       >
-        Save
+        Delete
       </button>
     </div>
   }
 >
-  <p>Are you sure you want to save these changes?</p>
+  <p>Are you sure you want to delete this account? This action cannot be undone.</p>
 </Modal>
 ```
 
 ---
 
-## Props Reference
+## Props
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `isOpen` | `boolean` | **Required** | Controls visibility of the modal. |
-| `onClose` | `() => void` | **Required** | Callback triggered when closing the modal (e.g. close button click). |
-| `children` | `ReactNode` | **Required** | Content rendered inside the modal body. |
-| `title` | `string` | `"Modal"` | Title text displayed in the header and set as the dialog's `aria-label`. |
-| `footer` | `ReactNode` | `undefined` | Optional footer element (e.g. action buttons). |
-| `size` | `"sm" \| "md" \| "lg" \| "xl" \| "xxl"` | `"md"` | Max-width size preset of the modal dialog. |
-| `bgColor` | `string` | `"bg-white"` | Background color or class for the modal dialog. Accepts Tailwind classes or raw CSS colors (`#hex`, `rgb`, etc.). |
-| `overlayBg` | `string` | `"bg-black/50"` | Background color or class for the backdrop overlay. Accepts Tailwind classes or raw CSS colors. |
-| `className` | `string` | `""` | Extra CSS classes applied to the modal dialog card. |
-| `overlayClassName` | `string` | `""` | Extra CSS classes applied to the outer backdrop overlay container. |
+| `isOpen` | `boolean` | *required* | Controls whether the modal is visible. |
+| `onClose` | `() => void` | *required* | Callback fired when user clicks the close button. |
+| `children` | `ReactNode` | *required* | Content rendered inside the dialog body. |
+| `title` | `string` | `"Modal"` | Header title string, also used as the `aria-label`. |
+| `footer` | `ReactNode` | `undefined` | Optional footer element (actions, buttons). |
+| `size` | `"sm" \| "md" \| "lg" \| "xl" \| "xxl"` | `"md"` | Dialog max-width preset. |
+| `bgColor` | `string` | `"bg-white"` | Modal card background. Accepts Tailwind class or raw CSS color (`#hex`, `rgb`, etc.). |
+| `overlayBg` | `string` | `"bg-black/50"` | Backdrop overlay background. Accepts Tailwind class or raw CSS color. |
+| `className` | `string` | `""` | Extra CSS class names for the modal card container. |
+| `overlayClassName` | `string` | `""` | Extra CSS class names for the backdrop wrapper. |
 
 ---
 
-## TypeScript Support
+## TypeScript
 
-All types can be imported directly:
+TypeScript types are included with the package:
 
 ```tsx
 import type { ModalProps, ModalSize } from "react-nat-modal";
@@ -193,4 +189,4 @@ import type { ModalProps, ModalSize } from "react-nat-modal";
 
 ## License
 
-MIT
+MIT © [Nafiz Al Turabi](https://github.com/Nafiz-Al-Turabi)

@@ -10,6 +10,7 @@ A lightweight, accessible, animated, and fully customizable React modal componen
 - ♿ **Accessible**: Includes `dialog` role, `aria-modal`, and `aria-label` attributes.
 - 🛠 **Fully Typed**: Written in TypeScript with full type definitions and JSDoc documentation.
 - 📦 **Zero External State Dependencies**: Simple and predictable controlled component.
+![React Nat Modal Demo](./demo/demo.gif)
 
 ---
 
